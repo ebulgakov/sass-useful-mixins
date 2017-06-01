@@ -1,0 +1,65 @@
+@mixin abs-center($param: "")
+  position: absolute
+  @if ($param == "h")
+    margin: 0 auto
+    left: 0
+    right: 0
+  @else if ($param == "v")
+    margin: auto 0
+    top: 0
+    bottom: 0
+  @else
+    margin: auto
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+
+@mixin rect($width: 100%, $height: '')
+  @if ($height != '')
+    width: $width
+    height: $height
+  @else
+    width: $width
+    height: $width
+
+@mixin circle($size)
+  +rect($size)
+  border-radius: 100%
+
+@mixin cross($width: 2px)
+  transform: rotate(45deg)
+  &:before, &:after
+    +abs-center
+    content: ""
+    background: currentColor
+  &:before
+    width: 100%
+    height: $width
+  &:after
+    width: $width
+    height: 100%
+
+@mixin invisible
+  position: absolute
+  left: 0
+  top: 0
+  z-index: -1
+  opacity: 0
+
+@mixin inline-middle
+  display: inline-block
+  vertical-align: middle
+
+@mixin clear-button
+  +inline-middle
+  background: transparent
+  border: none
+  padding: 0
+
+@mixin hover($color: $link-hover-color)
+  cursor: pointer
+  &:hover, &:focus
+    color: $color
+    @content
+
